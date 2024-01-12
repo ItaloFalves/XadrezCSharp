@@ -5,6 +5,6 @@ namespace Xadrez.tabuleiro.Enums
     enum Cor
     {
         Branca,
-        Preta
+        Laranja
     }
 }
