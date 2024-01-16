@@ -10,17 +10,17 @@ namespace Xadrez.tabuleiro
         public Tabuleiro Tabuleiro { get; protected set; }
         public int QuantidadeMovimento { get; protected set; }
 
-        public Peca() 
-        {
-        
-        }
-
         public Peca( Cor cor, Tabuleiro tabuleiro)
         {
             Posicao = null;
             Cor = cor;
             Tabuleiro = tabuleiro;
             QuantidadeMovimento = 0;
+        }
+
+        public void IncrementarQteMovimentos()
+        {
+            QuantidadeMovimento++;
         }
     }
 }
