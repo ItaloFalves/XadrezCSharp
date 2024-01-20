@@ -3,7 +3,7 @@ using Xadrez.tabuleiro.Enums;
 
 namespace Xadrez.tabuleiro
 {
-     class Peca
+    abstract class Peca
     {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
@@ -22,5 +22,28 @@ namespace Xadrez.tabuleiro
         {
             QuantidadeMovimento++;
         }
+
+        public bool ExisteMovimentosPossiveis()
+        {
+            bool[,] mat = MovimentosPossiveis();
+            for(int i = 0; i < Tabuleiro.Linhas; i++)
+            {
+                for (int j = 0; j < Tabuleiro.Colunas; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool PodeMoverPara(Posicao posicao)
+        {
+            return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

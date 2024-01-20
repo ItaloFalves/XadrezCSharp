@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Xadrez.tabuleiro.Exception;
 
 namespace Xadrez.tabuleiro
@@ -18,7 +14,7 @@ namespace Xadrez.tabuleiro
         {
             Linhas = linhas;
             Colunas = colunas;
-            pecas = new Peca[Linhas, Colunas];
+            pecas = new Peca[linhas, colunas];
         }
 
         public Peca peca (int linha, int coluna)

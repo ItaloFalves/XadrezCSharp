@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace Xadrez.tabuleiro
 {
@@ -7,12 +7,13 @@ namespace Xadrez.tabuleiro
         public int Linha { get; set; }
         public int Coluna { get; set; }
 
-        public Posicao()
+        public Posicao(int linha, int coluna)
         {
-
+            Linha = linha;
+            Coluna = coluna;
         }
 
-        public Posicao(int linha, int coluna)
+        public void DefinirValores(int linha, int coluna)
         {
             Linha = linha;
             Coluna = coluna;
