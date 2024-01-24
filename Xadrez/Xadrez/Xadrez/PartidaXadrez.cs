@@ -57,6 +57,7 @@ namespace Xadrez.Xadrez
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
+
             if (EstaEmXeque(jogadorAtual))
             {
                 DesfazMovimento(origem, destino, pecaCapturada);
@@ -72,8 +73,15 @@ namespace Xadrez.Xadrez
                 xeque = false;
             }
 
-            Turno++;
-            MudaJogador();
+            if (TesteXequeMate(Adversario(jogadorAtual)))
+            {
+                terminada = true;
+            }
+            else
+            {
+                Turno++;
+                MudaJogador();
+            }
         }
 
         public void ValidarPosicaoDeOrigem(Posicao posicao)
@@ -181,6 +189,37 @@ namespace Xadrez.Xadrez
             return false;
         }
 
+        public bool TesteXequeMate(Cor cor)
+        {
+            if(!EstaEmXeque(cor))
+            {
+                return false;
+            }
+            foreach(Peca x in PecasEmJogo(cor))
+            {
+                bool[,] mat = x.MovimentosPossiveis();
+                for(int i = 0; i < tabuleiro.Linhas; i++)
+                {
+                    for(int j = 0; j < tabuleiro.Colunas; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Posicao origem = x.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = EstaEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void ColocarNovaPeca(char coluna, int linha, Peca peca)
         {
             tabuleiro.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
@@ -190,11 +229,11 @@ namespace Xadrez.Xadrez
         private void ColocarPecas()
         {
             ColocarNovaPeca('c', 1, new Torre(Cor.Branca, tabuleiro));
-            ColocarNovaPeca('c', 2, new Torre(Cor.Branca, tabuleiro));
-            ColocarNovaPeca('c', 3, new Rei(Cor.Branca, tabuleiro));
+            ColocarNovaPeca('h', 7, new Torre(Cor.Branca, tabuleiro));
+            ColocarNovaPeca('d', 1, new Rei(Cor.Branca, tabuleiro));
 
-            ColocarNovaPeca('c', 7, new Torre(Cor.Preto, tabuleiro));
-            ColocarNovaPeca('d', 8, new Rei(Cor.Preto, tabuleiro));
+            ColocarNovaPeca('b', 8, new Torre(Cor.Preto, tabuleiro));
+            ColocarNovaPeca('a', 8, new Rei(Cor.Preto, tabuleiro));
 
 
         }
