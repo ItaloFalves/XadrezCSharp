@@ -23,6 +23,11 @@ namespace Xadrez.tabuleiro
             QuantidadeMovimento++;
         }
 
+        public void DecrementarQteMovimentos()
+        {
+            QuantidadeMovimento--;
+        }
+
         public bool ExisteMovimentosPossiveis()
         {
             bool[,] mat = MovimentosPossiveis();
