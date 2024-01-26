@@ -106,6 +106,20 @@ namespace Xadrez.Xadrez
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
+            Peca p = tabuleiro.peca(destino);
+
+            if(p is Peao)
+            {
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preto && destino.Linha == 7))
+                {
+                    p = tabuleiro.retirarPeca(destino);
+                    pecas.Remove(p);
+                    Peca dama = new Dama(tabuleiro, p.Cor);
+                    tabuleiro.ColocarPeca(dama, destino);
+                    pecas.Add(dama);
+                }
+            }
+
             if (EstaEmXeque(Adversario(jogadorAtual)))
             {
                 xeque = true;
